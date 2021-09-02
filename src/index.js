@@ -1,7 +1,7 @@
 console.log('Hello World');
 
 // Funtion using fetch api
-const dataFetch = async (request_param) => {
+const dataFetchGET = async (request_param) => {
     return await fetch(request_param)
         .then((response) => {
             console.log(response)
@@ -15,6 +15,39 @@ const dataFetch = async (request_param) => {
         .catch((err) => {
             console.log(err)
         })
+}
+
+const dataFetchPOST = async (request_param) => {
+    return await fetch(request_param)
+        .then((response) => {
+            console.log(response)
+            if (!response.ok) {
+                throw new Error(`HTTP error - status: ${response.status}`)
+            }
+            return response;
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+const dataFetchES2017 = async (request_param) => {
+    try {
+        const response = await fetch(request_param);
+        if (!response.ok) {
+            throw new Error(`HTTP error - status: ${response.status}`)
+        }
+
+        if (request_param.method === 'GET') {
+            const json = await response.json()
+            return json;
+        } else {
+            const code = response;
+            return code;
+        } 
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 
@@ -48,23 +81,29 @@ const request_GET = new Request(url, {
 })
 // console.log(request_GET)
 
-const output = await dataFetch(request_GET)
+// const output = await dataFetchGET(request_GET)
+const output = await dataFetchES2017(request_GET)
 // console.log(typeof output)
 
-const analysis = textAnalysis(output)
-console.log(typeof analysis);
-console.log(analysis);
+if (!output) {
+    throw new Error('No Data Found')
+} else {
+    const analysis = textAnalysis(output)
+    console.log(typeof analysis);
+    console.log(analysis);
 
-const request_POST = new Request(url, {
-    method: 'POST',
-    body: JSON.stringify(analysis),
-    headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-    }
-});
+    const request_POST = new Request(url, {
+        method: 'POST',
+        body: JSON.stringify(analysis),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        }
+    });
 
-const post_output = await dataFetch(request_POST);
-console.log(post_output)
+    // const post_output = await dataFetchPOST(request_POST);
+    const post_output = await dataFetchES2017(request_POST);
+    console.log(post_output)
+}
 
 
 
