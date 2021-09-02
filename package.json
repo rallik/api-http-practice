@@ -1,0 +1,23 @@
+{
+  "name": "api-http-practice",
+  "version": "1.0.0",
+  "description": "Practice with axios, headers, status codes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rallik/api-http-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rallik/api-http-practice/issues"
+  },
+  "homepage": "https://github.com/rallik/api-http-practice#readme",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
