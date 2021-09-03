@@ -38,13 +38,24 @@ const dataFetchES2017 = async (request_param) => {
             throw new Error(`HTTP error - status: ${response.status}`)
         }
 
-        if (request_param.method === 'GET') {
-            const json = await response.json()
-            return json;
-        } else {
-            const code = response;
-            return code;
-        } 
+        console.log(response.headers.get('content-type'))
+        // if (request_param.method === 'GET') {
+        //     const json = await response.json()
+        //     return json;
+        // } else {
+        //     const code = response;
+        //     return code;
+        // }
+
+        switch (request_param.method) {
+            case 'GET':
+                const json = await response.json()
+                return json;
+        
+            case 'POST':
+                const code = response;
+                return code;
+        }
     } catch (error) {
         console.log(error)
     }
